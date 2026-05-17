@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ensayos — El Solitario George</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F2EDE3;
+      --ink: #1C1A16;
+      --ink-light: #5C5648;
+      --ink-faint: #9B8E7D;
+      --rule: #D9D1C3;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 1140px;
+      --pad: 48px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 var(--pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .nav-brand span {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+
+    .nav-logo-center {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      opacity: 1;
+      flex-shrink: 0;
+      transform: scaleX(-1);
+      filter: contrast(1.8) brightness(0.15);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-light);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .nav-search {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-light);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .nav-search:hover { color: var(--ink); }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    /* HEADER DE PÁGINA */
+    .page-header {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px var(--pad) 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .page-description {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-light);
+      max-width: 480px;
+    }
+
+    /* ENSAYO DESTACADO */
+    .featured-essay {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px var(--pad);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .featured-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .featured-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 24px;
+      text-decoration: none;
+      display: block;
+      transition: color 0.2s;
+    }
+    .featured-title:hover { color: var(--ink-light); }
+
+    .featured-excerpt {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-light);
+      margin-bottom: 36px;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .featured-date {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--ink-faint);
+      font-weight: 300;
+    }
+
+    .featured-tag {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border: 1px solid var(--rule);
+      padding: 3px 10px;
+    }
+
+    .read-link {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: gap 0.3s;
+    }
+    .read-link:hover { gap: 14px; }
+
+    .featured-image {
+      overflow: hidden;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(15%) contrast(1.05);
+    }
+
+    /* LISTA DE ENSAYOS */
+    .essays-list {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    .essays-list-header {
+      padding: 48px 0 0;
+      margin-bottom: 0;
+    }
+
+    .essays-list-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: block;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .essay-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 40px;
+      align-items: start;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .essay-item:hover { opacity: 0.7; }
+
+    .essay-item-date {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--ink-faint);
+      font-weight: 300;
+      padding-top: 6px;
+    }
+
+    .essay-item-content {}
+
+    .essay-item-tag {
+      font-family: var(--sans);
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .essay-item-title {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .essay-item-excerpt {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink-light);
+    }
+
+    .essay-item-arrow {
+      font-family: var(--sans);
+      font-size: 18px;
+      color: var(--ink-faint);
+      padding-top: 4px;
+      transition: transform 0.3s, color 0.2s;
+    }
+    .essay-item:hover .essay-item-arrow {
+      transform: translateX(6px);
+      color: var(--ink);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px var(--pad);
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink-light);
+      font-weight: 400;
+    }
+
+    .footer-copy {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: var(--ink-faint);
+      font-weight: 300;
+      margin-top: 4px;
+    }
+
+    .footer-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      opacity: 0.6;
+      filter: contrast(1.8) brightness(0.15);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-links a {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
+    .footer-up {
+      background: none;
+      border: 1px solid var(--rule);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink-light);
+      transition: color 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-up:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      :root { --pad: 24px; }
+      .featured-essay { grid-template-columns: 1fr; gap: 40px; }
+      .featured-image { order: -1; }
+      .essay-item { grid-template-columns: 1fr; gap: 12px; }
+      .essay-item-date { padding-top: 0; }
+      .essay-item-arrow { display: none; }
+      .nav-logo-center { width: 80px; height: 80px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 16px; }
+      footer { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <span>El Solitario George</span>
+  </a>
+  <img src="assets/images/logo.png" alt="El Solitario George" class="nav-logo-center">
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="ensayos.html" class="active">Ensayos</a></li>
+    <li><a href="archivo.html">Archivo</a></li>
+    <li><a href="sobre.html">Sobre</a></li>
+    <li>
+      <button class="nav-search" aria-label="Buscar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header fade-in">
+  <span class="page-label">Escritura</span>
+  <h1 class="page-title">Ensayos</h1>
+  <p class="page-description">Textos largos sobre memoria, identidad, mestizaje y el presente latinoamericano. Escritura lenta para tiempos acelerados.</p>
+</div>
+
+<!-- ENSAYO DESTACADO -->
+<div class="featured-essay fade-in">
+  <div class="featured-text">
+    <span class="featured-label">Ensayo destacado</span>
+    <a class="featured-title" href="ensayos/mestizaje.html">Sobre el mestizaje como destino y como posibilidad</a>
+    <p class="featured-excerpt">América no es una mezcla accidental. Es una civilización en construcción. El mestizaje no es un punto de llegada, sino un camino que seguimos recorriendo. Un ensayo sobre lo que somos y lo que podríamos ser si dejáramos de mirar hacia afuera para encontrar lo que ya existe adentro.</p>
+    <div class="featured-meta">
+      <span class="featured-date">12 de mayo, 2024</span>
+      <span class="featured-tag">Identidad</span>
+    </div>
+    <a class="read-link" href="mestizaje.html">Leer ensayo &nbsp;→</a>
+  </div>
+  <div class="featured-image">
+    <img
+      src="https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=900&q=80"
+      alt="Paisaje latinoamericano"
+      onerror="this.style.background='#C9BFA8';this.style.height='480px';this.removeAttribute('src')"
+    >
+  </div>
+</div>
+
+<!-- LISTA DE ENSAYOS -->
+<div class="essays-list">
+  <div class="essays-list-header">
+    <span class="essays-list-label">Todos los ensayos</span>
+  </div>
+
+ <a class="essay-item fade-in" href="soledad.html">
+    <span class="essay-item-date">28 de abril, 2024</span>
+    <div class="essay-item-content">
+      <span class="essay-item-tag">Existencia</span>
+      <div class="essay-item-title">La soledad como forma de resistencia</div>
+      <p class="essay-item-excerpt">Hay una diferencia entre estar solo y estar aislado. El primero es una elección. El segundo, una condena. George lo sabía.</p>
+    </div>
+    <span class="essay-item-arrow">→</span>
+  </a>
+
+  <a class="essay-item fade-in" href="ensayos/memoria.html" style="transition-delay:0.05s;">
+    <span class="essay-item-date">21 de abril, 2024</span>
+    <div class="essay-item-content">
+      <span class="essay-item-tag">Historia</span>
+      <div class="essay-item-title">Apuntes sobre la memoria de los pueblos</div>
+      <p class="essay-item-excerpt">Los pueblos que olvidan su historia no están condenados a repetirla. Están condenados a no entender por qué el presente les duele tanto.</p>
+    </div>
+    <span class="essay-item-arrow">→</span>
+  </a>
+
+  <a class="essay-item fade-in" href="ensayos/futuro.html" style="transition-delay:0.1s;">
+    <span class="essay-item-date">15 de abril, 2024</span>
+    <div class="essay-item-content">
+      <span class="essay-item-tag">Tiempo</span>
+      <div class="essay-item-title">El futuro no está escrito: algunas intuiciones</div>
+      <p class="essay-item-excerpt">Vivimos atrapados entre una nostalgia que no nos pertenece y un futuro que no terminamos de imaginar. Hay algo que hacer en ese espacio intermedio.</p>
+    </div>
+    <span class="essay-item-arrow">→</span>
+  </a>
+
+  <a class="essay-item fade-in" href="ensayos/belleza.html" style="transition-delay:0.15s;">
+    <span class="essay-item-date">5 de abril, 2024</span>
+    <div class="essay-item-content">
+      <span class="essay-item-tag">Estética</span>
+      <div class="essay-item-title">Sobre la belleza y lo esencial</div>
+      <p class="essay-item-excerpt">La belleza no es decoración. Es una forma de conocimiento. Una manera de decir: esto importa, esto merece ser visto.</p>
+    </div>
+    <span class="essay-item-arrow">→</span>
+  </a>
+
+  <a class="essay-item fade-in" href="ensayos/pueblos.html" style="transition-delay:0.2s;">
+    <span class="essay-item-date">28 de marzo, 2024</span>
+    <div class="essay-item-content">
+      <span class="essay-item-tag">Territorio</span>
+      <div class="essay-item-title">El tiempo en los pueblos aún respira distinto</div>
+      <p class="essay-item-excerpt">En los pueblos pequeños el tiempo no avanza. Gira. Y en ese giro hay una sabiduría que las ciudades perdieron hace mucho.</p>
+    </div>
+    <span class="essay-item-arrow">→</span>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">El Solitario George</div>
+    <div class="footer-copy">© 2024</div>
+  </div>
+  <img src="assets/images/logo.png" alt="El Solitario George" class="footer-logo">
+  <div class="footer-right">
+    <ul class="footer-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="ensayos.html">Ensayos</a></li>
+      <li><a href="archivo.html">Archivo</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+    </ul>
+    <button class="footer-up" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+    </button>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 100);
+</script>
+
+</body>
+</html>
