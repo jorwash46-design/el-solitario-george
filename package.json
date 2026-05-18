@@ -1,0 +1,23 @@
+{
+  "name": "el-solitario-george",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorwash46-design/el-solitario-george.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorwash46-design/el-solitario-george/issues"
+  },
+  "homepage": "https://github.com/jorwash46-design/el-solitario-george#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5"
+  }
+}
