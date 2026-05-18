@@ -2,7 +2,7 @@ module.exports = function(eleventyConfig) {
 
   // Copiar assets
   eleventyConfig.addPassthroughCopy("src/assets");
-eleventyConfig.addPassthroughCopy("src/_redirects");
+  eleventyConfig.addPassthroughCopy("src/_redirects");
   // Colección de ensayos
   eleventyConfig.addCollection("ensayos", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/ensayos/*.md").reverse();
