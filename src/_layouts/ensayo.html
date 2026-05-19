@@ -377,6 +377,7 @@
   </div>
   <h1 class="ensayo-title">{{ title }}</h1>
   <p class="ensayo-opening">{{ opening }}</p>
+   {% if imagen %}<img src="{{ imagen }}" alt="{{ title }}" style="width:100%;height:auto;display:block;margin-bottom:40px;filter:sepia(10%) contrast(1.05);">{% endif %}
 </div>
 
 <div class="ensayo-body fade-in">
