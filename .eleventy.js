@@ -2,6 +2,7 @@ module.exports = function(eleventyConfig) {
 
   // Copiar assets
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("src/_redirects");
   // Colección de ensayos
   eleventyConfig.addCollection("ensayos", function(collectionApi) {
