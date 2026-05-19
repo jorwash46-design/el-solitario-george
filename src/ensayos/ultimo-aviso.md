@@ -1,4 +1,5 @@
 ---
+imagen: /assets/images/chatgpt-image-16-may-2026-21_03_29.png
 layout: ensayo.html
 title: Último Aviso
 date: 2026-05-17

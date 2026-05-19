@@ -1,3 +1,6 @@
+---
+layout: false
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -371,12 +374,12 @@
     }
 
     .footer-logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      opacity: 0.6;
-      filter: contrast(1.8) brightness(0.15);
-    }
+     width: 72px;
+     height: 72px;
+     object-fit: contain;
+     opacity: 0.8;
+     filter: contrast(1.8) brightness(0.15);
+}
 
     .footer-links {
       display: flex;
@@ -447,12 +450,14 @@
 </head>
 <body>
 
+<body>
+
 <!-- NAV -->
 <nav>
-  <a class="nav-brand" href="index.html">
+  <a class="nav-brand" href="/">
     <span>El Solitario George</span>
   </a>
-  <img src="assets/images/logo.png" alt="El Solitario George" class="nav-logo-center">
+  <img src="/assets/images/logo.png" alt="El Solitario George" class="nav-logo-center">
   <ul class="nav-links">
     <li><a href="/">Inicio</a></li>
     <li><a href="/ensayos/" class="active">Ensayos</a></li>
@@ -476,24 +481,24 @@
 </div>
 
 <!-- ENSAYO DESTACADO -->
+ {% assign ensayo_destacado = collections.ensayos | first %}
 <div class="featured-essay fade-in">
   <div class="featured-text">
     <span class="featured-label">Ensayo destacado</span>
-    <a class="featured-title" href="ensayos/mestizaje.html">Sobre el mestizaje como destino y como posibilidad</a>
-    <p class="featured-excerpt">América no es una mezcla accidental. Es una civilización en construcción. El mestizaje no es un punto de llegada, sino un camino que seguimos recorriendo. Un ensayo sobre lo que somos y lo que podríamos ser si dejáramos de mirar hacia afuera para encontrar lo que ya existe adentro.</p>
+    <a class="featured-title" href="/ensayos/{{ ensayo_destacado.fileSlug }}/">{{ ensayo_destacado.data.title }}</a>
+    <p class="featured-excerpt">{{ ensayo_destacado.data.opening }}</p>
     <div class="featured-meta">
-      <span class="featured-date">12 de mayo, 2024</span>
-      <span class="featured-tag">Identidad</span>
+      <span class="featured-date">{{ ensayo_destacado.date | date: "%d de %B, %Y" }}</span>
+      <span class="featured-tag">{{ ensayo_destacado.data.tag }}</span>
     </div>
-    <a class="read-link" href="mestizaje.html">Leer ensayo &nbsp;→</a>
+    <a class="read-link" href="/ensayos/{{ ensayo_destacado.fileSlug }}/">Leer ensayo &nbsp;→</a>
   </div>
   <div class="featured-image">
-    <img
-      src="https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=900&q=80"
-      alt="Paisaje latinoamericano"
-      onerror="this.style.background='#C9BFA8';this.style.height='480px';this.removeAttribute('src')"
-    >
-  </div>
+  <img
+    src="{{ ensayo_destacado.data.imagen }}"
+    alt="{{ ensayo_destacado.data.title }}"
+  >
+</div>
 </div>
 
 <!-- LISTA DE ENSAYOS -->
@@ -501,56 +506,17 @@
   <div class="essays-list-header">
     <span class="essays-list-label">Todos los ensayos</span>
   </div>
-
- <a class="essay-item fade-in" href="soledad.html">
-    <span class="essay-item-date">28 de abril, 2024</span>
+  {% for ensayo in collections.ensayos %}
+  <a class="essay-item fade-in" href="/ensayos/{{ ensayo.fileSlug }}/" style="transition-delay:{{ forloop.index | times: 0.05 }}s;">
+    <span class="essay-item-date">{{ ensayo.date | date: "%d de %B, %Y" }}</span>
     <div class="essay-item-content">
-      <span class="essay-item-tag">Existencia</span>
-      <div class="essay-item-title">La soledad como forma de resistencia</div>
-      <p class="essay-item-excerpt">Hay una diferencia entre estar solo y estar aislado. El primero es una elección. El segundo, una condena. George lo sabía.</p>
+      <span class="essay-item-tag">{{ ensayo.data.tag }}</span>
+      <div class="essay-item-title">{{ ensayo.data.title }}</div>
+      <p class="essay-item-excerpt">{{ ensayo.data.opening | truncate: 120 }}</p>
     </div>
     <span class="essay-item-arrow">→</span>
   </a>
-
-  <a class="essay-item fade-in" href="ensayos/memoria.html" style="transition-delay:0.05s;">
-    <span class="essay-item-date">21 de abril, 2024</span>
-    <div class="essay-item-content">
-      <span class="essay-item-tag">Historia</span>
-      <div class="essay-item-title">Apuntes sobre la memoria de los pueblos</div>
-      <p class="essay-item-excerpt">Los pueblos que olvidan su historia no están condenados a repetirla. Están condenados a no entender por qué el presente les duele tanto.</p>
-    </div>
-    <span class="essay-item-arrow">→</span>
-  </a>
-
-  <a class="essay-item fade-in" href="ensayos/futuro.html" style="transition-delay:0.1s;">
-    <span class="essay-item-date">15 de abril, 2024</span>
-    <div class="essay-item-content">
-      <span class="essay-item-tag">Tiempo</span>
-      <div class="essay-item-title">El futuro no está escrito: algunas intuiciones</div>
-      <p class="essay-item-excerpt">Vivimos atrapados entre una nostalgia que no nos pertenece y un futuro que no terminamos de imaginar. Hay algo que hacer en ese espacio intermedio.</p>
-    </div>
-    <span class="essay-item-arrow">→</span>
-  </a>
-
-  <a class="essay-item fade-in" href="ensayos/belleza.html" style="transition-delay:0.15s;">
-    <span class="essay-item-date">5 de abril, 2024</span>
-    <div class="essay-item-content">
-      <span class="essay-item-tag">Estética</span>
-      <div class="essay-item-title">Sobre la belleza y lo esencial</div>
-      <p class="essay-item-excerpt">La belleza no es decoración. Es una forma de conocimiento. Una manera de decir: esto importa, esto merece ser visto.</p>
-    </div>
-    <span class="essay-item-arrow">→</span>
-  </a>
-
-  <a class="essay-item fade-in" href="ensayos/pueblos.html" style="transition-delay:0.2s;">
-    <span class="essay-item-date">28 de marzo, 2024</span>
-    <div class="essay-item-content">
-      <span class="essay-item-tag">Territorio</span>
-      <div class="essay-item-title">El tiempo en los pueblos aún respira distinto</div>
-      <p class="essay-item-excerpt">En los pueblos pequeños el tiempo no avanza. Gira. Y en ese giro hay una sabiduría que las ciudades perdieron hace mucho.</p>
-    </div>
-    <span class="essay-item-arrow">→</span>
-  </a>
+  {% endfor %}
 
 </div>
 
