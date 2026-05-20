@@ -34,5 +34,5 @@ collections:
     fields:
       - { label: "Tipo", name: "tipo", widget: "select", options: ["Fragmento", "Nota breve", "Cita", "Observación", "Diario", "Imagen"] }
       - { label: "Fecha", name: "date", widget: "datetime" }
-      - { label: "Imagen", name: "imagen", widget: "image", required: false }
+      - { label: "Imagen (opcional)", name: "imagen", widget: "image", required: false, hint: "Solo para tipo Imagen" }
       - { label: "Contenido", name: "body", widget: "markdown" }
