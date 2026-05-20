@@ -2,6 +2,8 @@ backend:
   name: github
   repo: jorwash46-design/el-solitario-george
   branch: master
+  base_url: https://oauth-github-cms.jorwash46.workers.dev
+  auth_endpoint: /auth
 
 media_folder: "src/assets/images"
 public_folder: "/assets/images"
