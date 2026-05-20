@@ -476,13 +476,17 @@
 <div class="archivo-wrap">
   <div class="masonry">
 
-    <!-- FRAGMENTO 1 -->
-    <div class="archivo-item item-fragmento fade-in">
-      <span class="item-label">Fragmento</span>
-      <p class="item-text-large">«La historia no se repite, pero rima. Y América lleva siglos escribiendo la misma canción con nuevas palabras.»</p>
+    {% for item in collections.archivo %}
+    <div class="archivo-item item-{{ item.data.tipo | downcase | replace: ' ', '-' }} fade-in">
+      <span class="item-label">{{ item.data.tipo }}</span>
+      <div class="item-text-medium">{{ item.content }}</div>
       <div class="item-rule"></div>
-      <span class="item-date">12 de mayo, 2024</span>
+      <span class="item-date">{{ item.date | date: "%d de %B, %Y" }}</span>
     </div>
+    {% endfor %}
+
+  </div>
+</div>
 
     <!-- IMAGEN 1 -->
     <div class="archivo-item item-imagen fade-in" style="transition-delay:0.05s;">

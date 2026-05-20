@@ -4,9 +4,15 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("src/_redirects");
+
   // Colección de ensayos
   eleventyConfig.addCollection("ensayos", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/ensayos/*.md").reverse();
+  });
+
+  // Colección de archivo
+  eleventyConfig.addCollection("archivo", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/archivo/*.md").reverse();
   });
 
   return {
