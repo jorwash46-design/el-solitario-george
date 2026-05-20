@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: jorwash46-design/el-solitario-george
   branch: master
 
 media_folder: "src/assets/images"
